@@ -1,0 +1,1 @@
+using the swagger api is easier http://localhost:8080/swagger-ui.html
