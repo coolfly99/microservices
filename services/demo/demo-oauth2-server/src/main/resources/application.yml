@@ -1,7 +1,16 @@
 server:
-    port: 8081
-
-
+  port:
+    8043
+  ssl:
+    enabled: true
+    keyStoreType: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    ssl.key-alias: tomcat
+  http:
+    port:
+      8081
+      
 config:
     oauth2:
         privateKey: |
