@@ -61,3 +61,16 @@ server.ssl.key-store=classpath:keystore.p12
 server.ssl.key-store-password=password
 server.ssl.key-alias=tomcat
 
+JKS to P12, P12 export the cert or private key
+http://asaf.github.io/blog/post/export_certificate_and_private_key_from_jks/
+https://stackoverflow.com/questions/652916/converting-a-java-keystore-into-pem-format
+https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
+
+-- Generate PEM by p12
+openssl pkcs12 -in keystore.p12 -out cert.pem
+Enter Import Password:
+MAC verified OK
+Enter PEM pass phrase:
+Verifying - Enter PEM pass phrase:
+
+keytool -import -alias tomcat -file cert.crt -keystore keystore.p12 -storepass password

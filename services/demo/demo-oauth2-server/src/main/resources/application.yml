@@ -1,12 +1,12 @@
 server:
   port:
-    8043
+    8443
   ssl:
     enabled: true
     keyStoreType: PKCS12
     key-store: classpath:keystore.p12
     key-store-password: password
-    ssl.key-alias: tomcat
+    key-alias: tomcat
   http:
     port:
       8081
