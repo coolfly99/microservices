@@ -24,6 +24,9 @@ curl -k https://localhost:8443/oauth/token -d "grant_type=password&scope=read&us
 ???not work
 curl --cacert cert.pem https://www.octopus.com:8443/oauth/token -d "grant_type=password&scope=read&username=user&password=password" -u trusted:secret
 
+crlient_credential workflow:
+curl -k https://localhost:8443/oauth/token -d "grant_type=client_credentials&scope=read" -u trusted:secret
+
 Mutiple scope:
 curl localhost:8443/oauth/token -d "grant_type=password&scope=read+write&username=user&password=password" -u trusted:secret
 Invalid scope:

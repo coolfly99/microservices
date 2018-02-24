@@ -9,13 +9,22 @@ https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/s
 
 3. Get Token
 curl -k https://localhost:8443/oauth/token -d "grant_type=password&scope=read&username=user&password=password" -u trusted:secret
-=>
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTk0MzgxODMsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjQ0OGJkNzMtNDgxZi00MWE2LWI2YzUtNDFmZmJmMGE2YTcyIiwiY2xpZW50X2lkIjoidHJ1c3RlZCIsInNjb3BlIjpbInJlYWQiXX0.MLtYQCXKtXrU-7a1s15pvG9rf_HQLfacDH7UtKbj4M9kjy1OCckrccyOyTrUtKxY7LZxKLvW04BBrIOVOoP0pPOtTWaVfJC2oogg4eE06DKa2ojIYZ9UQrhFetqb4iTjtof_Eu-Q7WTpfHd_YTtDsjs7V5_9EH9Hg9ik7dIx30g
+
 
 curl -k https://localhost:9043/
 
-curl -k https://localhost:9043/api/hello -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTk0MzgxODMsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjQ0OGJkNzMtNDgxZi00MWE2LWI2YzUtNDFmZmJmMGE2YTcyIiwiY2xpZW50X2lkIjoidHJ1c3RlZCIsInNjb3BlIjpbInJlYWQiXX0.MLtYQCXKtXrU-7a1s15pvG9rf_HQLfacDH7UtKbj4M9kjy1OCckrccyOyTrUtKxY7LZxKLvW04BBrIOVOoP0pPOtTWaVfJC2oogg4eE06DKa2ojIYZ9UQrhFetqb4iTjtof_Eu-Q7WTpfHd_YTtDsjs7V5_9EH9Hg9ik7dIx30g"
+curl -k https://localhost:9043/api/hello -H "Authorization: Bearer {token}"
 
-curl -k -X GET -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTk0MzgxODMsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjQ0OGJkNzMtNDgxZi00MWE2LWI2YzUtNDFmZmJmMGE2YTcyIiwiY2xpZW50X2lkIjoidHJ1c3RlZCIsInNjb3BlIjpbInJlYWQiXX0.MLtYQCXKtXrU-7a1s15pvG9rf_HQLfacDH7UtKbj4M9kjy1OCckrccyOyTrUtKxY7LZxKLvW04BBrIOVOoP0pPOtTWaVfJC2oogg4eE06DKa2ojIYZ9UQrhFetqb4iTjtof_Eu-Q7WTpfHd_YTtDsjs7V5_9EH9Hg9ik7dIx30g" https://localhost:9043/api/hello
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:9043/api/hello
 
-curl -k -X GET -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTk0MzgxODMsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjQ0OGJkNzMtNDgxZi00MWE2LWI2YzUtNDFmZmJmMGE2YTcyIiwiY2xpZW50X2lkIjoidHJ1c3RlZCIsInNjb3BlIjpbInJlYWQiXX0.MLtYQCXKtXrU-7a1s15pvG9rf_HQLfacDH7UtKbj4M9kjy1OCckrccyOyTrUtKxY7LZxKLvW04BBrIOVOoP0pPOtTWaVfJC2oogg4eE06DKa2ojIYZ9UQrhFetqb4iTjtof_Eu-Q7WTpfHd_YTtDsjs7V5_9EH9Hg9ik7dIx30g" https://localhost:9043/api/
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:9043/api/
+
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:9043/api/
+
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:9043/api/hello
+
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:9043/api/greeting
+
+
+HTTPClient access with https:
+http://www.baeldung.com/httpclient-ssl

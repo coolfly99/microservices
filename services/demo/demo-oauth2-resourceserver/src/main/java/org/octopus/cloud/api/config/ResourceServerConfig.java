@@ -1,7 +1,5 @@
 package org.octopus.cloud.api.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,18 +18,18 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-	private static final Logger log = LoggerFactory.getLogger(ResourceServerConfig.class);
 
 	@Value("${config.oauth2.publicKey}")
 	private String publicKey;
-	//@Autowired
-	//private CustomAccessTokenConverter customAccessTokenConverter;
+	@Autowired
+	private CustomAccessTokenConverter customAccessTokenConverter;
 
 	@Override
 	public void configure(final HttpSecurity http) throws Exception {
 		// @formatter:off
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and().authorizeRequests()
 				.anyRequest().permitAll();
+
 		// @formatter:on
 	}
 
@@ -48,7 +46,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		// converter.setAccessTokenConverter(customAccessTokenConverter);
+		converter.setAccessTokenConverter(customAccessTokenConverter);
 		converter.setVerifierKey(publicKey);
 		return converter;
 	}
