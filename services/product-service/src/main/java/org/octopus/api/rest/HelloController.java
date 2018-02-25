@@ -15,10 +15,9 @@ public class HelloController {
 		return "hello";
 	}
 
-//	
-//	@PreAuthorize("#oauth2.hasScope('read')")
-//	@RequestMapping(method = RequestMethod.GET, value = "/greeting")
-//	public String greeting() {
-//		return "greeting";
-//	}
+	@PreAuthorize("#oauth2.hasScope('read')")
+	@RequestMapping(method = RequestMethod.GET, value = "/greeting")
+	public String greeting() {
+		return "greeting";
+	}
 }

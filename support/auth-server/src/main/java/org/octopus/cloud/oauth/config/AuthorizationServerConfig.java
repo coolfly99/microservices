@@ -36,9 +36,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
-    private Environment env;
+	private Environment env;
 
 	@Bean
 	public JwtAccessTokenConverter tokenEnhancer() {
@@ -53,20 +53,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(tokenEnhancer());
 	}
-/*
-	@Bean
-	public JdbcTokenStore jdbcTokenStore() {
-		return new JdbcTokenStore(dataSource());
-	}
-	@Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.pass"));
-        return dataSource;
-    }*/
+	/*
+	 * @Bean public JdbcTokenStore jdbcTokenStore() { return new
+	 * JdbcTokenStore(dataSource()); }
+	 * 
+	 * @Bean public DataSource dataSource() { final DriverManagerDataSource
+	 * dataSource = new DriverManagerDataSource();
+	 * dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+	 * dataSource.setUrl(env.getProperty("jdbc.url"));
+	 * dataSource.setUsername(env.getProperty("jdbc.user"));
+	 * dataSource.setPassword(env.getProperty("jdbc.pass")); return dataSource; }
+	 */
 
 	@Bean
 	@Primary
@@ -129,6 +126,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				// Trusted client: similar to confidential client but also allowed to handle
 				// user password
 				.withClient("trusted").secret("secret")
+				// .secret("$2a$08$MJ8ZTKYC8L/UqWrBw9lNoutHkNfsssazbU9Ap0yk3F54d8EgNELWS")
+				.authorities("ROLE_TRUSTED_CLIENT")
+				.authorizedGrantTypes("client_credentials", "password", "authorization_code", "refresh_token")
+				.scopes("read", "write").redirectUris("http://localhost:8080/client/")
+
+				.and()
+
+				.withClient("product").secret("secret")
 				// .secret("$2a$08$MJ8ZTKYC8L/UqWrBw9lNoutHkNfsssazbU9Ap0yk3F54d8EgNELWS")
 				.authorities("ROLE_TRUSTED_CLIENT")
 				.authorizedGrantTypes("client_credentials", "password", "authorization_code", "refresh_token")

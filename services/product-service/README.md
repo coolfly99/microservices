@@ -18,3 +18,14 @@ Jdbc Store Trace: HttpTraceRepository
 
 Reference:
 https://reflectoring.io/documenting-spring-data-rest-api-with-springfox/
+http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+Test Secure API:
+curl -k https://localhost:8443/oauth/token -d "grant_type=client_credentials&scope=read" -u product:secret
+
+
+curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:6043/api/rest/greeting
+
+
+Access Swagger:
+https://localhost:6043/api/swagger-ui.html
