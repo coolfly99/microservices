@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(tags = "product-controller")
-@RepositoryRestResource(collectionResourceRel = "type", path = "product")
+@RepositoryRestResource(collectionResourceRel = "type", path = "rest/product")
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
 	@ApiOperation("find all products that are associated with a given name")
 	Page<Product> findByNameIgnoringCase(@Param("name") @ApiParam(value = "name of the product") String name,

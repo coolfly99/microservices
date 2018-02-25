@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -19,7 +20,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -39,6 +39,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Autowired
 	private Environment env;
+	
+	//@Autowired
+	//private DataSource dataSource;
 
 	@Bean
 	public JwtAccessTokenConverter tokenEnhancer() {
@@ -56,14 +59,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	/*
 	 * @Bean public JdbcTokenStore jdbcTokenStore() { return new
 	 * JdbcTokenStore(dataSource()); }
-	 * 
-	 * @Bean public DataSource dataSource() { final DriverManagerDataSource
-	 * dataSource = new DriverManagerDataSource();
-	 * dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-	 * dataSource.setUrl(env.getProperty("jdbc.url"));
-	 * dataSource.setUsername(env.getProperty("jdbc.user"));
-	 * dataSource.setPassword(env.getProperty("jdbc.pass")); return dataSource; }
 	 */
+	@Bean
+	public DataSource dataSource() {
+		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(env.getProperty("spring.datasource.driverClassName"));
+		dataSource.setUrl(env.getProperty("spring.datasource.url"));
+		dataSource.setUsername(env.getProperty("spring.datasource.username"));
+		dataSource.setPassword(env.getProperty("spring.datasource.password"));
+		return dataSource;
+	}
 
 	@Bean
 	@Primary
@@ -107,7 +112,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
+		clients.jdbc(dataSource());
+		/*clients.inMemory()
 
 				// Confidential client where client secret can be kept safe (e.g. server side)
 				.withClient("confidential").secret("secret")
@@ -137,6 +143,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				// .secret("$2a$08$MJ8ZTKYC8L/UqWrBw9lNoutHkNfsssazbU9Ap0yk3F54d8EgNELWS")
 				.authorities("ROLE_TRUSTED_CLIENT")
 				.authorizedGrantTypes("client_credentials", "password", "authorization_code", "refresh_token")
-				.scopes("read", "write").redirectUris("http://localhost:8080/client/");
+				.scopes("read", "write").redirectUris("http://localhost:8080/client/");*/
 	}
 }

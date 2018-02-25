@@ -17,7 +17,7 @@ server:
 #spring.profiles.active=dev
 spring.jpa.database: mysql
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost/oauth?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.url: jdbc:mysql://localhost/oauth?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 spring.datasource.username: oauth
 spring.datasource.password: oauth
 # db init settings
@@ -73,7 +73,7 @@ spring:
 #spring.profiles.active=dev
 spring.jpa.database: mysql
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost/oauthdev?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.url: jdbc:mysql://localhost/oauth?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 spring.datasource.username: oauth
 spring.datasource.password: oauth
 # db init settings
@@ -89,7 +89,7 @@ spring:
 
 spring.jpa.database: mysql
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost/oauthintg?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.url: jdbc:mysql://localhost/oauthintg?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 spring.datasource.username: oauth
 spring.datasource.password: oauth
 spring.jpa.hibernate.ddl-auto: validate
@@ -104,7 +104,7 @@ spring:
 
 spring.jpa.database: mysql
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost/oauthuat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.url: jdbc:mysql://localhost/oauthuat?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 spring.datasource.username: oauth
 spring.datasource.password: oauth
 spring.jpa.hibernate.ddl-auto: validate
@@ -119,7 +119,7 @@ spring:
 
 spring.jpa.database: mysql
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost/oauthprod?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.url: jdbc:mysql://localhost/oauthprod?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 spring.datasource.username: oauth
 spring.datasource.password: oauth
 spring.jpa.hibernate.ddl-auto: validate
