@@ -60,7 +60,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.tags(new Tag("product-controller", "Repository for Product entities")).select()
 				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.regex("/rest/.*|/api/user.*|/api/register.*|/oauth/token.*"))
+				.paths(PathSelectors.regex("/api.*|/rest/.*|/api/user.*|/api/register.*|/oauth/token.*"))
 				// PathSelectors.any() for all
 				.build().securitySchemes(Arrays.asList(securitySchema()))
 				.securityContexts(Arrays.asList(securityContext())).apiInfo(apiInfo());
@@ -91,7 +91,7 @@ public class SwaggerConfig {
 	}
 
 	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.ant("/user/**"))
+		return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.ant("/api/**"))
 				.build();
 	}
 
@@ -104,10 +104,15 @@ public class SwaggerConfig {
 		return Collections.singletonList(new SecurityReference("oauth2schema", authorizationScopes));
 	}
 
-	@Bean
+	/*@Bean
 	public SecurityConfiguration securityInfo() {
 		return new SecurityConfiguration(clientId, clientSecret, "", "", "", ApiKeyVehicle.HEADER, "", " ");
-	}
+	}*/
+	
+	@Bean
+    public SecurityConfiguration securityInfo() {
+        return new SecurityConfiguration(null, null, null, null, "", ApiKeyVehicle.HEADER,"Authorization",": Bearer");
+    }
 	/*
 	 * private SecurityScheme securityScheme() { GrantType grantType = new
 	 * AuthorizationCodeGrantBuilder() .tokenEndpoint(new TokenEndpoint(AUTH_SERVER

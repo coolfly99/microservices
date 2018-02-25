@@ -29,3 +29,7 @@ curl -k -X GET -H "Authorization: Bearer {token}" https://localhost:6043/api/res
 
 Access Swagger:
 https://localhost:6043/api/swagger-ui.html
+
+curl  http://localhost:8081/oauth/token -d "grant_type=password&scope=read&username=user&password=password" -u product:secret
+
+curl -k https://localhost:8443/oauth/token -d "grant_type=password&scope=read&username=user&password=password" -u trusted:secret

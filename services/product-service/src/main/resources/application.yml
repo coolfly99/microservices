@@ -24,6 +24,7 @@ server:
 app.oauth.clientId: product
 app.oauth.clientSecret: secret
 app.oauth.url: http://localhost:8081/oauth/token
+auth.server.schem: http
 
 config:
     oauth2:
