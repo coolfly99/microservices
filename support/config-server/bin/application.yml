@@ -1,0 +1,32 @@
+server.port: 8888
+
+#spring.cloud.config.server.git.uri: ${HOME}/config-repo
+
+spring.jpa.database: mysql
+spring.datasource.driverClassName: com.mysql.jdbc.Driver
+spring.datasource.url: jdbc:mysql://localhost/config?useUnicode=true&useSSL=false&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+spring.datasource.username: config
+spring.datasource.password: config
+# db init settings
+spring.jpa.hibernate.ddl-auto: validate
+spring.jpa.showSql: true
+spring.datasource.sqlScriptEncoding: UTF-8
+
+spring:
+  cloud:
+    config:
+      server:
+        default-label: dev  
+        bootstrap: true
+        jdbc:
+          sql: SELECT KY , VAL FROM PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1          
+        git:
+          uri: ${HOME}/config-repo
+          order:  2
+        
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.cloud.config: DEBUG

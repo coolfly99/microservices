@@ -1,0 +1,7 @@
+spring.application.name: demo-config-client-app
+spring.cloud.config.uri: http://localhost:8888
+
+
+#spring.cloud.config.username=user
+#spring.cloud.config.password=password
+#management.security.enabled=false
