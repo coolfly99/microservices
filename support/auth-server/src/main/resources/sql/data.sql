@@ -1,3 +1,4 @@
+DELETE FROM oauth_client_details where client_id in ('fooClientIdPassword','sampleClientId','barClientIdPassword','product');
 INSERT INTO oauth_client_details
 	(client_id, client_secret, scope, authorized_grant_types,
 	web_server_redirect_uri, authorities, access_token_validity,
@@ -18,4 +19,11 @@ INSERT INTO oauth_client_details
 	refresh_token_validity, additional_information, autoapprove)
 VALUES
 	('barClientIdPassword', 'secret', 'bar,read,write',
+	'password,authorization_code,refresh_token', null, null, 36000, 36000, null, true);
+INSERT INTO oauth_client_details
+	(client_id, client_secret, scope, authorized_grant_types,
+	web_server_redirect_uri, authorities, access_token_validity,
+	refresh_token_validity, additional_information, autoapprove)
+VALUES
+	('product', 'secret', 'read,write',
 	'password,authorization_code,refresh_token', null, null, 36000, 36000, null, true);

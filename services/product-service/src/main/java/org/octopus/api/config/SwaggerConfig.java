@@ -2,27 +2,24 @@ package org.octopus.api.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.GrantType;
-import springfox.documentation.service.OAuth;
-import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.service.Tag;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
@@ -62,8 +59,8 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.regex("/api.*|/rest/.*|/api/user.*|/api/register.*|/oauth/token.*"))
 				// PathSelectors.any() for all
-				.build().securitySchemes(Arrays.asList(securitySchema()))
-				.securityContexts(Arrays.asList(securityContext())).apiInfo(apiInfo());
+				.build().securitySchemes(apiKeys())
+				.securityContexts(securityContext()).apiInfo(apiInfo());
 				//.globalResponseMessage(RequestMethod.GET, list).globalResponseMessage(RequestMethod.POST, list);
 	}
 
@@ -74,8 +71,47 @@ public class SwaggerConfig {
 				"http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>());
 		return apiInfo;
 	}
+	
+	private List<SecurityContext> securityContext() {
+        List<SecurityContext> securityContexts = new ArrayList<>();
+        SecurityContext context = SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.ant("/**"))
+                .build();
+        securityContexts.add(context);
+        return  securityContexts;
+    }
+    List<SecurityReference> defaultAuth() {
+        List<AuthorizationScope> authorizationScopeList = new ArrayList<>();
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[2];
+        authorizationScopes[0] = new AuthorizationScope( "read", "read only" );
+        authorizationScopes[1] = new AuthorizationScope( "write", "read and write" );
+        List<SecurityReference> list=  new ArrayList<SecurityReference>();
+        SecurityReference s = new SecurityReference("Authorization", authorizationScopes);
+        list.add(s);
+        return list;
+    }
 
-	private OAuth securitySchema() {
+    @Bean
+    public SecurityConfiguration securityInfo() {
+        return new SecurityConfiguration(
+                "client_id",
+                "client_secret",
+                "realm",
+                "XXX",
+                "Bearer ",
+                ApiKeyVehicle.HEADER,
+                "Authorization",
+                ",");
+    }
+
+    private List<SecurityScheme> apiKeys() {
+        ArrayList<SecurityScheme> securitySchemes = new ArrayList<>();
+        securitySchemes.add(new ApiKey("Authorization", "Authorization", "header"));
+        return securitySchemes;
+    }
+
+	/*private OAuth securitySchema() {
 
 		List<AuthorizationScope> authorizationScopeList = new ArrayList();
 		authorizationScopeList.add(new AuthorizationScope("read", "read all"));
@@ -88,9 +124,9 @@ public class SwaggerConfig {
 
 		return new OAuth("oauth2schema", authorizationScopeList, grantTypes);
 
-	}
+	}*/
 
-	private SecurityContext securityContext() {
+	/*private SecurityContext securityContext() {
 		return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.ant("/api/**"))
 				.build();
 	}
@@ -103,16 +139,18 @@ public class SwaggerConfig {
 
 		return Collections.singletonList(new SecurityReference("oauth2schema", authorizationScopes));
 	}
+	
+	*/
 
 	/*@Bean
 	public SecurityConfiguration securityInfo() {
 		return new SecurityConfiguration(clientId, clientSecret, "", "", "", ApiKeyVehicle.HEADER, "", " ");
 	}*/
 	
-	@Bean
+	/*@Bean
     public SecurityConfiguration securityInfo() {
         return new SecurityConfiguration(null, null, null, null, "", ApiKeyVehicle.HEADER,"Authorization",": Bearer");
-    }
+    }*/
 	/*
 	 * private SecurityScheme securityScheme() { GrantType grantType = new
 	 * AuthorizationCodeGrantBuilder() .tokenEndpoint(new TokenEndpoint(AUTH_SERVER
