@@ -1,0 +1,21 @@
+server.port: 8888
+
+#spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+#spring.cloud.config.server.git.uri: ${HOME}/config-repo
+
+#spring.data.mongodb.uri: mongodb://localhost/config
+spring.data.mongodb.host: localhost # Mongo server host.
+spring.data.mongodb.port: 27017
+spring.data.mongodb.database: config
+spring.data.mongodb.repositories.enabled: true # Enable Mongo repositories.
+spring.data.mongodb.username: config
+spring.data.mongodb.password: config
+     
+#spring.datasource.url = …
+#spring.datasource.driver-class-name: mongodb.jdbc.MongoDriver   
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.cloud.config: DEBUG
