@@ -1,19 +1,22 @@
-server.port: 8888
+server:
+  port: 8843
+  ssl:
+    enabled: true
+    keyStoreType: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    key-alias: tomcat
+  http:
+    port:
+      8888
 
 #spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 #spring.cloud.config.server.git.uri: ${HOME}/config-repo
 
-#spring.data.mongodb.uri: mongodb://localhost/config
-spring.data.mongodb.host: localhost # Mongo server host.
-spring.data.mongodb.port: 27017
-spring.data.mongodb.database: config
-spring.data.mongodb.repositories.enabled: true # Enable Mongo repositories.
-spring.data.mongodb.username: config
-spring.data.mongodb.password: config
-     
-#spring.datasource.url = …
-#spring.datasource.driver-class-name: mongodb.jdbc.MongoDriver   
+spring.data.mongodb.uri: mongodb://localhost/config-db
+
+    
 
 logging:
   level:
